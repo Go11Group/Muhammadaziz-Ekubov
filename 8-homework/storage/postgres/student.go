@@ -14,85 +14,47 @@ func NewStudentRepo(db *sql.DB) *StudentRepo {
 }
 
 func (u *StudentRepo) GetAllStudents() ([]model.User, error) {
-	rows, err := u.Db.Query(`select s.id, s.name, age, gender, c.name from student s
-					left join course c on c.id = s.course_id `)
+	query := "SELECT * FROM students"
+	rows, err := u.Db.Query(query)
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
-	var users []model.User
-	var user model.User
+	students := []model.User{}
 	for rows.Next() {
-		err = rows.Scan(&user.ID, &user.Name, &user.Age, &user.Gender, &user.Course)
+		student := model.User{}
+		err := rows.Scan(&student.ID, &student.Name, &student.Course, student.Gender, &student.Age)
 		if err != nil {
 			return nil, err
 		}
-		users = append(users, user)
+		students = append(students, student)
 	}
-
-	return users, nil
+	return students, nil
 }
 
-func (u *StudentRepo) GetByID(id string) (model.User, error) {
-	var user model.User
-	//
-	//err := u.Db.QueryRow(`select s.id, s.name, age, gender, c.name from student s
-	//				left join course c on c.id = s.course_id where s.id = $1`, id).
-	//	Scan(&user.ID, &user.Name, &user.Age, &user.Gender, &user.Course)
-	//if err != nil {
-	//	return model.User{}, err
-	//}
+func (u *StudentRepo) Insert(id, name, gender, course string, age int) error {
+	query := "INSERT INTO students (id, name, age, course, gender) VALUES ($1, $2, $3, $4, $5), id, name, age, course, gender"
 
-	return user, nil
-}
-
-func Create(db *sql.DB, user model.User) error {
-	//
-	//query := `
-	//    INSERT INTO users (id, name, age, gender, course)
-	//    VALUES (default, 'Johan', 32, 'm', 'golang')
-	//`
-	//stmt, err := db.Prepare(query)
-	//if err != nil {
-	//	return fmt.Errorf("failed to prepare insert statement: %v", err)
-	//}
-	//defer stmt.Close()
-	//
-
-	//_, err = stmt.Exec(user.Name, user.Email, user.Age)
-	//if err != nil {
-
+	_, err := u.Db.Exec(query, id, name, age, gender, course)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
-func Update(db *sql.DB, user model.User) error {
-
-	//err := db.QueryRow(`update student Set age = $1 where id = $2`, `user.Age, user.ID`)
-	//	if err != nil {
-	//		return nil
-	//	}
-
+func (u *StudentRepo) Update(id, name, gender, course string, age int) error {
+	_, err := u.Db.Exec("Update student Set where id = $1, name = $2, gender = $4, course = $5, age = $3", id, name, gender, course, age)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
-func Delete(db *sql.DB, id string) error {
-
-	//query := `
-	//    DELETE FROM users
-	//    WHERE id = $1
-	//`
-	//stmt, err := db.Prepare(query)
-	//if err != nil {
-	//	return fmt.Errorf("failed to prepare delete statement: %v", err)
-	//}
-	//defer stmt.Close()
-	//
-
-	//_, err = stmt.Exec(id)
-	//if err != nil {
-	//	return fmt.Errorf("failed to execute delete statement: %v", err)
-	//}
-
+func (u *StudentRepo) Delete(id, name, gender string) error {
+	_, err := u.Db.Exec("Delete from students where id = $1", id)
+	if err != nil {
+		return err
+	}
 	return nil
 }
-
