@@ -92,3 +92,7 @@ INSERT INTO Terminal (station_id) VALUES
     ((SELECT id FROM Station WHERE name = 'East Station')),
     ((SELECT id FROM Station WHERE name = 'South Station')),
     ((SELECT id FROM Station WHERE name = 'West Station'));
+
+alter table terminal add column created_at timestamp default now();
+alter table terminal add column updated_at timestamp default now();
+alter table terminal add column deleted_at bigint default 0;
