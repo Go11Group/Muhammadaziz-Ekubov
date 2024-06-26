@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "/genproto";
+
+package protos;
+
+service TransportService {
+  rpc GetBusSchedule(Request) returns (Respons);
+  rpc TrackBusLocation(Request) returns (Respons);
+  rpc ReportTrafficJam(Request) returns (Respons);
+}
+
+message

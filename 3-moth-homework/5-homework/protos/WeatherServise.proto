@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "/genproto";
+
+package protos;
+
+service WeatherService{
+  rpc GetCurrentWeather(GCWRequest) returns (GCWResponse);
+  rpc GetWeatherForecast(GWFRequest) returns (GWFResponse);
+  rpc ReportWeatherCondition(RWCRequest) returns (RWSResponse);
+}
+
+message GCWRequest {
+
+}
