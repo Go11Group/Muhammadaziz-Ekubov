@@ -1,10 +1,12 @@
-module Muhammadaziz-Ekubov/3-moth-homework/5-homework
+module Muhammadaziz-Ekubov/3-moth-homework/4-homework
 
 go 1.23rc1
 
 require (
+	github.com/google/uuid v1.6.0
+	github.com/lib/pq v1.10.9
 	google.golang.org/grpc v1.64.0
-	google.golang.org/protobuf v1.34.2
+	google.golang.org/protobuf v1.33.0
 )
 
 require (

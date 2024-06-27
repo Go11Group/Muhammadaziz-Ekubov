@@ -1,13 +1,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"time"
 
-	"context"
-	pb "library/genprotos/generator"
+	pb "translator/proto/translator"
 
-	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -17,38 +17,16 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer conn.Close()
+	c := pb.NewTranslatorServerClient(conn)
 
-	c := pb.NewLibraryServiceClient(conn)
-
-	// // AddBook
-	// req := &pb.AddBookRequest{
-	// 	Title:         "Saodat Asri",
-	// 	Author:        "Ahmad Lutfiy",
-	// 	YearPublished: 2024,
-	// }
-	// r, err := c.AddBook(context.Background(), req)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println(r)
-
-	// // SearchBook
-	// query := `select * from book`
-	// reqS := &pb.SearchBookRequest{Query: query}
-	// books, err := c.SearchBook(context.Background(), reqS)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println(books)
-
-	// Borrow book
-	reqB := &pb.BorrowBookRequest{
-		BookId: "3a7b38ac-3e11-4a21-ad55-518aba99e37d",
-		UserId: uuid.NewString(),
-	}
-	resB, err := c.BorrowBook(context.Background(), reqB)
+	req := pb.Request{Words: []string{"apple", "book", "house", "car", "tree", "water", "fire", "sky", "earth"}}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := c.Translate(ctx, &req)
 	if err != nil {
-		log.Fatal(resB)
+		log.Fatal(err)
 	}
-	fmt.Println(resB)
+
+	fmt.Println(r)
 }
