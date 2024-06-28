@@ -2,7 +2,8 @@ package storage
 
 import (
 	"database/sql"
-	genproto "github.com/Go11Group/at_lesson/lesson47/second_service/protos"
+
+	genproto "Muhammadaziz-Ekubov/3-moth-homework/7-homework/second_service/genproto"
 )
 
 type WeatherStorage struct {

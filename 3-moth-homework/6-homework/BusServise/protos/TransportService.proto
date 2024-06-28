@@ -17,7 +17,7 @@ message BusScheduleRequest {
 message BusScheduleResponse {
   repeated Station stations  = 1;
 }
-message BusLocationRequest {
+message BusLocationRequest {1
   string BusNumber = 1;
 }
 message Station {
