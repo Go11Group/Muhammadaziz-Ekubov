@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "/genproto/weather_service";
+
+package genproto;
+
+service WeatherService{
+  rpc GetCurrentWeather(GCWRequest) returns (GCWResponse);
+  rpc GetWeatherForecast(GWFRequest) returns (GWFResponse);
+  rpc ReportWeatherCondition(RWCRequest) returns (RWSResponse);
+}
+
+message GCWRequest {
+  string city = 1;
+}
+message GCWResponse {
+  string Time = 1;
+  int32 Humidity = 2;
+  string Temperature = 3;
+  string WindMPH = 4;
+}
+
+message GWFRequest {
+  string City = 1;
+  int32 Days = 2;
+}
+
+message GWFResponse {
+  string Temperature = 1;
+  string Time = 2;
+  string WindMPH = 3;
+  int32 Humidity = 4;
+}
+
+message RWCRequest {
+  string Country = 1;
+  string City = 2;
+  string Time = 3;
+  string Temperature = 4;
+  string WindMPH = 5;
+  int32 Humidity = 6;
+}
+message RWSResponse {
+  bool isReported = 1;
+}
