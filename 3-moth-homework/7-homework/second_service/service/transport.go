@@ -3,7 +3,8 @@ package service
 import (
 	"context"
 	"fmt"
-	p "github.com/Go11Group/at_lesson/lesson47/second_service/genproto"
+
+	p "Muhammadaziz-Ekubov/3-moth-homework/7-homework/second_service/genproto"
 )
 
 type TransportService struct {

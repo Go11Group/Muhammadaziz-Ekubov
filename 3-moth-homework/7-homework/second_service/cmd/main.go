@@ -11,7 +11,6 @@ import (
 
 	"Muhammadaziz-Ekubov/3-moth-homework/7-homework/second_service/pkg/db"
 	s "Muhammadaziz-Ekubov/3-moth-homework/7-homework/second_service/service"
-	_ "github.com/lib/pq"
 )
 
 func main() {
@@ -30,7 +29,7 @@ func main() {
 	}
 
 	storage := storage.NewWeatherStorage(db)
-	127u	service := s.WeatherService{Storage: *storage}
+	service := s.WeatherService{Storage: *storage}
 	tr := s.TransportService{}
 
 	p.RegisterWeatherServiceServer(server, &service)

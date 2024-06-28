@@ -3,9 +3,10 @@ package service
 import (
 	"context"
 	"fmt"
-	p "github.com/Go11Group/at_lesson/lesson47/second_service/genproto"
-	"github.com/Go11Group/at_lesson/lesson47/second_service/storage"
 
+	p "Muhammadaziz-Ekubov/3-moth-homework/7-homework/second_service/genproto"
+
+	"Muhammadaziz-Ekubov/3-moth-homework/7-homework/second_service/storage"
 	// grpcclinet "github.com/Go11Group/at_lesson/lesson47service/grpc-clinet"
 
 	"log"

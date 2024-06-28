@@ -6,10 +6,10 @@ import (
 )
 
 type Handler struct {
-	TrClient *pbt.TransportServiceClient
-	WhClient *pbw.WeatherServiceClient
+	TrClient pbt.TransportServiceClient
+	WhClient pbw.WeatherServiceClient
 }
 
 func NewHandler(Weather pbw.WeatherServiceClient, Transport pbt.TransportServiceClient) *Handler {
-	return &Handler{WhClient: &Weather, TrClient: &Transport}
+	return &Handler{WhClient: Weather, TrClient: Transport}
 }
